@@ -1,0 +1,10 @@
+Django==4.2.13
+psycopg2-binary==2.9.9
+requests==2.32.3
+
+
+
+
+# python manage.py startapp app
+# python manage.py migrate # создает базу данных
+# python manage.py runserver # запускает проект

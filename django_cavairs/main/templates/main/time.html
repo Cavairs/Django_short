@@ -1,0 +1,7 @@
+{% extends 'main/layout.html' %}
+{% block main_title %}<h1>Текущие время</h1>{% endblock %}
+
+
+{% block context %}<div class="times_now">
+    <p class="item_time">{{ current_time | date:"H:i" }}</p>
+</div>{% endblock %}
