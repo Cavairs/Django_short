@@ -1,25 +1,27 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{% endblock %}</title>
+    <title>{% block title %}'Django-Cavairs'{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
 </head>
 
 <body>
     {% block content %}
     <div class="link_items">
-        <a class="link" href="{% url 'home' %}">Главная страница</a>
-        <a class="link" href="{% url 'times' %}">Дата и время</a>
-        <a class="link" href="{% url 'direct'%}">Дериктория проекта</a>
-        <a class="link" href="">Библиотерка картинок</a>
+        <a class="link" href="{% url 'omlet' %}">Омлет</a>
+        <a class="link" href="{% url 'pasta' %}">Паста</a>
+        <a class="link" href="{% url 'buter' %}">Бутерброд</a>
+
     </div>
     {% endblock %}
     {% block main_title %}{% endblock %}
     {% block context %}{% endblock %}
+
+
 </body>
 
 </html>

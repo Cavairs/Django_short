@@ -7,6 +7,9 @@ h1 {
     margin-bottom: 70px;
 }
 
+.list {
+    list-style-type: none;
+}
 
 .link_items {
     display: flex;
@@ -34,8 +37,10 @@ h1 {
 }
 
 
-.times_now {
+.times-now {
     text-align: center;
+    color: red;
+    font-size: 50px;
 
 }
 

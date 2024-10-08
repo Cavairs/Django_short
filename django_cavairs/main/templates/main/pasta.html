@@ -1,0 +1,22 @@
+{% extends 'main/layout.html' %}
+{% block main_title %}<h1>Паста</h1>{% endblock %}
+
+
+{% block context %}<div>
+    <form method="post" action="{% url 'pasta' %}">
+        {% csrf_token %}
+        <label for="servings">Количество порций:</label>
+        <input type="number" id="servings" name="servings" value="1" min="1">
+        <button type="submit">Рассчитать</button>
+    </form>
+
+    {% if Ingredients %}
+    <h2>Ингредиенты:</h2>
+    <ul>
+        {% for ingredient, quantity in Ingredients.items %}
+        <li>{{ ingredient }} - {{ quantity }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+</div>{% endblock %}

@@ -2,6 +2,8 @@ from django.urls import path
 from . import views
 urlpatterns = [
     path('', views.index, name='home'),  # Главная страница
-    path('times', views.times, name='times'),  # Время
-    path('direct', views.direct, name='direct'),  # Директория
+    path('omlet', views.omlet, name='omlet'),  # Omlet
+    path('omlet/<int:servings>/', views.omlet, name='servings'),
+    path('pasta', views.pasta, name='pasta'),  # Pasta
+    path('buter', views.pasta, name='buter'),  # buter
 ]
