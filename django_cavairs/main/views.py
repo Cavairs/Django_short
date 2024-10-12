@@ -1,64 +1,61 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-
-
-DATA = {
-    'omlet': {
-        'яйца, шт': 2,
-        'молоко, л': 0.1,
-        'соль, ч.л.': 0.5,
-    },
-    'pasta': {
-        'макароны, г': 0.3,
-        'сыр, г': 0.05,
-    },
-    'buter': {
-        'хлеб, ломтик': 1,
-        'колбаса, ломтик': 1,
-        'сыр, ломтик': 1,
-        'помидор, ломтик': 1,
-    },
-    # можете добавить свои рецепты ;)
-}
-
-
-# Create your views here.
+from main.models import Phone
 
 
 def index(request):
-    return render(request, 'main/index.html')
-
-
-def omlet(request, servings=1):
-    if request.method == 'POST':
-        servings = int(request.POST.get("servings", 1))
-        ingredients = {}
-        for k, v in DATA['omlet'].items():
-            ingredients[k] = v * servings
-        return render(request, 'main/omlet.html', {'Ingredients': ingredients})
+    sort_by = request.GET.get('sort_by', 'name')
+    sort_order = request.GET.get('order', 'asc')
+    #  минус для убывающей сортировки
+    if sort_order == 'desc':
+        sort_by = f"-{sort_by}"
+    # выполняяем сортировку если sort_by й есть запрашиваемые ключи то вернем order_by(sort_by)
+    if sort_by.lstrip('-') in ['name', 'price', 'release_date']:
+        catalog = Phone.objects.all().order_by(sort_by)
     else:
-        return render(request, 'main/omlet.html')
+        catalog = Phone.objects.all()
+        sort_by = 'name'
+    # список словарей
+    phone_details = [
+        {'name': phone.name, 'image': phone.image, 'price': phone.price,
+         'release_date': phone.release_date, 'lte_exists': phone.lte_exists}
+        for phone in catalog
+    ]
+    context = {
+        'phone_details': phone_details,
+        'current_sort': sort_by,
+        'current_order': sort_order
+    }
 
+    return render(request, 'main/index.html', context)
 
-def pasta(request):
+    # def omlet(request, servings=1):
+    #     if request.method == 'POST':
+    #         servings = int(request.POST.get("servings", 1))
+    #         ingredients = {}
+    #         for k, v in DATA['omlet'].items():
+    #             ingredients[k] = v * servings
+    #         return render(request, 'main/omlet.html', {'Ingredients': ingredients})
+    #     else:
+    #         return render(request, 'main/omlet.html')
 
-    if request.method == 'POST':
-        servings = int(request.POST.get("servings", 1))
-        ingredients = {}
-        for k, v in DATA['pasta'].items():
-            ingredients[k] = v * servings
-        return render(request, 'main/pasta.html', {'Ingredients': ingredients})
-    else:
-        return render(request, 'main/pasta.html')
+    # def pasta(request):
 
+    #     if request.method == 'POST':
+    #         servings = int(request.POST.get("servings", 1))
+    #         ingredients = {}
+    #         for k, v in DATA['pasta'].items():
+    #             ingredients[k] = v * servings
+    #         return render(request, 'main/pasta.html', {'Ingredients': ingredients})
+    #     else:
+    #         return render(request, 'main/pasta.html')
 
-def buter(request):
+    # def buter(request):
 
-    if request.method == 'POST':
-        servings = int(request.POST.get("servings", 1))
-        ingredients = {}
-        for k, v in DATA['buter'].items():
-            ingredients[k] = v * servings
-        return render(request, 'main/buter.html', {'Ingredients': ingredients})
-    else:
-        return render(request, 'main/buter.html')
+    #     if request.method == 'POST':
+    #         servings = int(request.POST.get("servings", 1))
+    #         ingredients = {}
+    #         for k, v in DATA['buter'].items():
+    #             ingredients[k] = v * servings
+    #         return render(request, 'main/buter.html', {'Ingredients': ingredients})
+    #     else:
+    #         return render(request, 'main/buter.html')

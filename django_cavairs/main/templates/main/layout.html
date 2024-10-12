@@ -10,16 +10,23 @@
 </head>
 
 <body>
-    {% block content %}
-    <div class="link_items">
-        <a class="link" href="{% url 'omlet' %}">Омлет</a>
-        <a class="link" href="{% url 'pasta' %}">Паста</a>
-        <a class="link" href="{% url 'buter' %}">Бутерброд</a>
-
-    </div>
-    {% endblock %}
     {% block main_title %}{% endblock %}
-    {% block context %}{% endblock %}
+
+    <p>Сортировать по :</p>
+    <div>
+        <a href="?sort_by=name&order=asc">по названию </a> |
+        <a href="?sort_by=price&order=asc">с дешовых </a> |
+        <a href="?sort_by=price&order=desc">с дорогих </a> |
+    </div>
+    {% for phone in phone_details %}
+    <div class="catalog">
+        <ul class="list-item">
+            <li class="item phone-name">{{ phone.name }}</li>
+            <li class="item phone-price">Стоимость: {{ phone.price }} Р.</li>
+            <li class="item phone-img"><img class="img" src="{{ phone.image }}" alt="изображение телефона"></li>
+        </ul>
+        {%endfor%}
+    </div>
 
 
 </body>
